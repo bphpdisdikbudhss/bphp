@@ -1,11 +1,369 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Website Saya</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPHP DISDIKBUD HSS — Portal Kerja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #16324A;
+    --navy-deep: #0F2436;
+    --river: #3E8C7E;
+    --river-light: #6FB3A4;
+    --gold: #B8923F;
+    --bg: #EEF2F1;
+    --card: #FFFFFF;
+    --ink: #17222B;
+    --ink-soft: #4B5A63;
+    --line: #DCE3E1;
+    --radius: 14px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Public Sans', -apple-system, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position: relative;
+    background: linear-gradient(160deg, var(--navy-deep) 0%, var(--navy) 62%, #1E4256 100%);
+    color: #F2F6F5;
+    padding: 64px 24px 96px;
+    overflow: hidden;
+  }
+
+  .header-inner{
+    max-width: 980px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-size: 12.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--river-light);
+    font-weight: 600;
+    margin-bottom: 22px;
+  }
+
+  .eyebrow::before{
+    content:"";
+    width: 22px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(2.1rem, 5vw, 3.2rem);
+    line-height: 1.12;
+    margin: 0 0 16px;
+    max-width: 14ch;
+    letter-spacing: -0.01em;
+  }
+
+  .header-sub{
+    font-size: 16.5px;
+    color: #CBD9D5;
+    max-width: 46ch;
+    margin: 0;
+  }
+
+  .header-sub strong{
+    color: #F2F6F5;
+    font-weight: 600;
+  }
+
+  /* river motif */
+  .river-motif{
+    position:absolute;
+    left:0; right:0; bottom:-2px;
+    width:100%;
+    height: 140px;
+    z-index: 1;
+  }
+
+  /* ---------- MAIN ---------- */
+  main{
+    max-width: 980px;
+    margin: -56px auto 0;
+    padding: 0 24px 80px;
+    position: relative;
+    z-index: 3;
+  }
+
+  .section-block{
+    margin-bottom: 52px;
+  }
+
+  .section-head{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 0 4px;
+  }
+
+  .section-head h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.35rem;
+    margin: 0;
+    color: var(--navy-deep);
+  }
+
+  .section-head span{
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .card-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+  }
+
+  .card{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 26px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 1px 2px rgba(15, 36, 54, 0.04);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.6s ease forwards;
+  }
+
+  .card:nth-child(1){ animation-delay: 0.05s; }
+  .card:nth-child(2){ animation-delay: 0.15s; }
+  .card:nth-child(3){ animation-delay: 0.25s; }
+
+  @keyframes rise{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  .card:hover, .card:focus-visible{
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(15, 36, 54, 0.12);
+    border-color: var(--river-light);
+  }
+
+  .card:focus-visible{
+    outline: 2px solid var(--river);
+    outline-offset: 3px;
+  }
+
+  .card-icon{
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: #EAF1EF;
+    color: var(--river);
+    flex-shrink:0;
+  }
+
+  .card-icon svg{ width:22px; height:22px; }
+
+  .card h3{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.08rem;
+    margin: 0;
+    color: var(--navy-deep);
+  }
+
+  .card p{
+    margin: 0;
+    font-size: 14px;
+    color: var(--ink-soft);
+    flex-grow: 1;
+  }
+
+  .card-cta{
+    display:inline-flex;
+    align-items:center;
+    gap: 6px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--river);
+    margin-top: 4px;
+  }
+
+  .card-cta svg{
+    width: 14px; height: 14px;
+    transition: transform 0.2s ease;
+  }
+
+  .card:hover .card-cta svg{
+    transform: translate(3px, -3px);
+  }
+
+  /* gold tag for spreadsheet card */
+  .card.rekap .card-icon{
+    background: #F5EEDD;
+    color: var(--gold);
+  }
+  .card.rekap .card-cta{
+    color: #97772F;
+  }
+
+  footer{
+    text-align:center;
+    padding: 30px 24px 50px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  footer .footer-title{
+    font-weight: 600;
+    color: var(--navy-deep);
+  }
+
+  @media (max-width: 600px){
+    header{ padding: 48px 20px 84px; }
+    main{ margin-top: -48px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{ animation: none; opacity: 1; transform: none; }
+    html{ scroll-behavior: auto; }
+    .card, .card-cta svg{ transition: none; }
+  }
+</style>
 </head>
 <body>
-  <h1>Halo, ini website pertama saya!</h1>
-  <p>Dibuat pakai GitHub Pages.</p>
+
+<header>
+  <div class="header-inner">
+    <p class="eyebrow">Portal Kerja Internal</p>
+    <h1>BPHP DISDIKBUD<br>Hulu Sungai Selatan</h1>
+    <p class="header-sub">Satu pintu akses untuk data, unggahan berkas, dan formulir pencatatan <strong>Bidang Pembinaan Pendidikan Dasar</strong> Kabupaten Hulu Sungai Selatan.</p>
+  </div>
+
+  <svg class="river-motif" viewBox="0 0 1000 140" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,90 C150,40 300,120 500,70 C700,20 850,100 1000,60 L1000,140 L0,140 Z" fill="var(--bg)"/>
+    <path d="M0,70 C160,110 320,30 500,80 C680,130 830,50 1000,90" fill="none" stroke="#6FB3A4" stroke-opacity="0.45" stroke-width="2"/>
+    <path d="M0,55 C170,95 330,15 500,60 C670,105 840,35 1000,72" fill="none" stroke="#B8923F" stroke-opacity="0.35" stroke-width="1.5"/>
+  </svg>
+</header>
+
+<main>
+
+  <section class="section-block">
+    <div class="section-head">
+      <h2>Akses Drive</h2>
+      <span>Arsip &amp; berkas data</span>
+    </div>
+    <div class="card-grid">
+
+      <a class="card" href="https://drive.google.com/drive/folders/1u3ods1vfbZJ0xPTP9psxxyQmYZOf9k2j?usp=sharing" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Z"/></svg>
+        </div>
+        <h3>Data Dikdas 1</h3>
+        <p>Buka folder arsip data pendidikan dasar untuk melihat berkas yang sudah tersimpan.</p>
+        <span class="card-cta">Buka folder drive
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </span>
+      </a>
+
+      <a class="card" href="https://drive.google.com/drive/folders/1w68YegJrk9bZTpIF4p0F_sSfKcQeF3vv?usp=sharing" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0-12 4 4m-4-4-4 4M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+        </div>
+        <h3>Upload Data 2</h3>
+        <p>Unggah berkas baru ke folder drive yang telah disediakan untuk pengumpulan data.</p>
+        <span class="card-cta">Buka folder drive
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </span>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-head">
+      <h2>Formulir &amp; Rekap</h2>
+      <span>Pencatatan &amp; data mutasi</span>
+    </div>
+    <div class="card-grid">
+
+      <a class="card" href="https://forms.gle/tLTr3uXAd9D4iYxi7" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h5M8 17h3"/></svg>
+        </div>
+        <h3>Input Catatan</h3>
+        <p>Isi formulir untuk mencatat kegiatan atau catatan harian bidang.</p>
+        <span class="card-cta">Isi formulir
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </span>
+      </a>
+
+      <a class="card" href="https://forms.gle/y9c9W9ZyYKZx8SSv7" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8 21 12 17 16M7 8 3 12 7 16M14 4 10 20"/></svg>
+        </div>
+        <h3>Input Catatan Mutasi Siswa</h3>
+        <p>Catat data siswa yang masuk atau keluar melalui formulir mutasi.</p>
+        <span class="card-cta">Isi formulir
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </span>
+      </a>
+
+      <a class="card rekap" href="https://docs.google.com/spreadsheets/d/14Vuy0tjxLy7DZIxnADLgBTiTvkoe_x3v3npEupXABG4/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 10h16M4 16h16M10 4v16"/></svg>
+        </div>
+        <h3>Rekap Data Mutasi Siswa</h3>
+        <p>Lihat rangkuman data mutasi siswa dalam bentuk spreadsheet.</p>
+        <span class="card-cta">Buka rekap
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+        </span>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p class="footer-title">BPHP DISDIKBUD Hulu Sungai Selatan</p>
+  <p>Portal kerja internal — seluruh tautan mengarah ke layanan Google.</p>
+</footer>
+
 </body>
 </html>
